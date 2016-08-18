@@ -43,17 +43,23 @@ Client.create.api_key
 
 ###Sample Request
 ```
-curl -H "Authorization: Token token=the-api-key-you-just-in-the-console" http://localhost:3000/api/v1/restaurants
+curl -H "Authorization: Token token=the-api-key-copied-from-the-console" http://localhost:3000/api/v1/restaurants
 ```
 
 ##Api Documentation
 
 ###Restaurants List
-Provides a paginated list of all restaurants. Limit 10 restaurants per page.
+Provides a paginated list of all restaurants. Limit 5 restaurants per page.
 
 ```
 GET /api/v1/restaurants
 ```
+
+Sample Url (second page of restaurant results)
+```
+http://localhost:3000/api/v1/restaurants?page=2
+```
+
 
 Sample Response
 
