@@ -48,9 +48,7 @@ RSpec.describe Api::V1::MenuItemsController, :type => :controller do
 
     it "has tags" do
       r = create(:restaurant)
-      menu_item = MenuItem.create!(restaurant_id: r.id)
-      menu_item.tag_list << "vegan"
-      menu_item.save
+      menu_item = MenuItem.create!(restaurant_id: r.id, tag_list: ["vegan"])
 
       get :index, params: {restaurant_id: r.id}
       menu_items = JSON.parse(response.body)

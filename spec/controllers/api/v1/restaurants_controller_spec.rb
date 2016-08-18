@@ -50,14 +50,14 @@ RSpec.describe Api::V1::RestaurantsController, :type => :controller do
     end
 
     it "paginates the response" do
-      12.times { Restaurant.create }
+      7.times { Restaurant.create }
 
       get :index
       page1 = JSON.parse(response.body)
 
-      expect(page1.length).to eq(10)
-      expect(response.headers["Per-Page"]).to eq("10")
-      expect(response.headers["Total"]).to eq("12")
+      expect(page1.length).to eq(5)
+      expect(response.headers["Per-Page"]).to eq("5")
+      expect(response.headers["Total"]).to eq("7")
 
       get :index, page: 2
       page2 = JSON.parse(response.body)

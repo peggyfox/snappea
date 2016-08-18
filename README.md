@@ -70,6 +70,7 @@ Sample Response
 
 ###Menu Items List for a Restaurant
 Provides a list of menu items for a restaurant.
+Categories are limited to: Entree, Appetizer, Side, Dessert, and Beverage.
 
 ```
 GET /api/v1/restaurants/:restaurant_id/menu_items
