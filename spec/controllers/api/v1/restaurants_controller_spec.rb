@@ -1,52 +1,41 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::RestaurantsController, :type => :controller do
+
   before(:each) do
+    @r = create(:restaurant, name: "Portillos", description: "Family retaurant", rating: 5, address: "100 W Ontario St, Chicago, IL 60654")
     http_token_auth
   end
 
   describe "GET index" do
     it "returns all restaurants" do
-      restaurant = create(:restaurant)
       get :index
       restaurants = JSON.parse(response.body)
       expect(restaurants.length).to eq(1)
     end
 
     it "has a name" do
-      name = "Portillos"
-      r = create(:restaurant, name: name)
-
       get :index
       restaurants = JSON.parse(response.body)
-      expect(restaurants.first["name"]).to eq(name)
+      expect(restaurants.first["name"]).to eq(@r.name)
     end
 
     it "has a description" do
-      description = "Family restaurant."
-      r = create(:restaurant, description: description)
-
       get :index
       restaurants = JSON.parse(response.body)
-      expect(restaurants.first["description"]).to eq(description)
+      expect(restaurants.first["description"]).to eq(@r.description)
     end
 
     it "has a rating" do
-      rating = 5
-      r = create(:restaurant, rating: rating)
-
       get :index
       restaurants = JSON.parse(response.body)
-      expect(restaurants.first["rating"]).to eq(rating)
+      expect(restaurants.first["rating"]).to eq(@r.rating)
     end
 
     it "has a address" do
-      address = "100 W Ontario St, Chicago, IL 60654"
-      r = create(:restaurant, address: address)
-
       get :index
       restaurants = JSON.parse(response.body)
-      expect(restaurants.first["address"]).to eq(address)
+      expect(restaurants.first["address"]).to eq(@r.address)
     end
 
     it "paginates the response" do
@@ -57,11 +46,11 @@ RSpec.describe Api::V1::RestaurantsController, :type => :controller do
 
       expect(page1.length).to eq(5)
       expect(response.headers["Per-Page"]).to eq("5")
-      expect(response.headers["Total"]).to eq("7")
+      expect(response.headers["Total"]).to eq(Restaurant.count.to_s)
 
       get :index, page: 2
       page2 = JSON.parse(response.body)
-      expect(page2.length).to eq(2)
+      expect(page2.length).to eq(Restaurant.count - 5)
     end
 
   end
