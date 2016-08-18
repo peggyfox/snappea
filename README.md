@@ -49,7 +49,7 @@ curl -H "Authorization: Token token=the-api-key-you-just-in-the-console" http://
 ##Api Documentation
 
 ###Restaurants List
-Provides a list of all restaurants
+Provides a paginated list of all restaurants. Limit 10 restaurants per page.
 
 ```
 GET /api/v1/restaurants
