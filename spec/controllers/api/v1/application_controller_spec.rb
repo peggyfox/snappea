@@ -12,7 +12,7 @@ RSpec.describe Api::V1::ApplicationController, :type => :controller do
     context "no api key" do
       it "returns 401" do
         get :index
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::ApplicationController, :type => :controller do
         request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials("randomstring")
 
         get :index
-        expect(response).to have_http_status(401)
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::ApplicationController, :type => :controller do
         request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(c.api_key)
 
         get :index
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
   end
